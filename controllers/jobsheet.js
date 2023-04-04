@@ -4,26 +4,23 @@ const Quiz = db.quizzes;
 
 exports.submitOne = async (req, res) => {
     //data yang didapatkan dari inputan oleh pengguna 
-    const jobsheet = {
-        quizId: req.body.quizId,
-        answer: req.body.answer,
-    };
-
+    const { quizId, answer } = req.body;
+    
     try {
-        var quiz = await Quiz.findOne({
+        //cb
+        const quiz = await Quiz.findOne({
             where: {
-                id: req.body.quizId
+                id: quizId
             }
         });
-//cb
-        if (req.body.answer == quiz.key) {
+        if (quiz.key === answer) {
             res.status(200).json({
                 "message":"Jawaban anda benar"
             })
         }
         else {
             res.status(200).json({
-                "message": `jawaban mu yang benar adalah  ${quiz.key}`
+                "message": `jawaban mu yang benar adalah ${quiz.key}`
             })
         }
     }catch (e) {

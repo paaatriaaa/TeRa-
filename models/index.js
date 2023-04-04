@@ -21,4 +21,10 @@ db.sequelize = sequelize;
 //define semua models yang ada pada aplikasi 
 db.quizzes = require('./quiz')(sequelize, Sequelize);
 db.materies = require('./materi')(sequelize, Sequelize);
+
+db.sequelize.sync({ force:false })
+    .then(()=> {
+        console.log('Drop and Resync DB')
+    })
+
 module.exports = db;
